@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balwinder Singh | Interactive Resume</title>
+    <title>Balwinder Singh | Curriculum Vitae</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
@@ -26,7 +26,7 @@
             background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
             color: var(--text-dark);
             line-height: 1.6;
-            padding-bottom: 80px; /* Space for fixed button on mobile */
+            padding-bottom: 80px;
         }
 
         /* Fixed Download Button */
@@ -65,22 +65,70 @@
             animation: slideUp 1s ease-out;
         }
 
+        /* Top CV Heading */
+        .cv-title-section {
+            background: var(--primary);
+            text-align: center;
+            padding: 30px 20px 10px;
+            color: white;
+        }
+
+        .cv-title-section h1 {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 2.2rem;
+            margin: 0;
+        }
+
+        /* Adjusted Header Layout */
         header {
             background: var(--primary);
             color: white;
-            padding: 60px 40px;
+            padding: 20px 50px 60px;
             display: flex;
+            justify-content: space-between; /* Pushes text left, image right */
             align-items: center;
-            gap: 40px;
             clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
         }
 
+        .header-content {
+            text-align: left;
+            max-width: 60%;
+        }
+
+        .header-content h2 {
+            font-size: 2.5rem;
+            color: white;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 5px;
+            text-transform: none;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .contact-info i {
+            width: 20px;
+            color: var(--secondary);
+        }
+
         .profile-img {
-            width: 180px;
-            height: 180px;
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
             border: 5px solid white;
             object-fit: cover;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .main-grid {
@@ -88,6 +136,7 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 40px;
+            background: white; /* Ensures solid background for PDF */
         }
 
         section {
@@ -98,7 +147,7 @@
 
         section.visible { opacity: 1; transform: translateY(0); }
 
-        h2 {
+        h2.section-title {
             color: var(--primary);
             border-left: 5px solid var(--secondary);
             padding-left: 15px;
@@ -153,19 +202,23 @@
             border-radius: 50%;
         }
 
-        /* PDF specific style adjustments */
-        #resume-body {
-            background: white;
-            border-radius: 0 0 20px 20px;
-        }
-
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; padding: 40px 20px; }
+            header { 
+                flex-direction: column-reverse; 
+                text-align: center; 
+                padding: 30px 20px 60px; 
+                gap: 20px;
+            }
+            .header-content {
+                text-align: center;
+                max-width: 100%;
+            }
+            .cv-title-section h1 { font-size: 1.8rem; }
             .download-btn { width: calc(100% - 60px); justify-content: center; left: 30px; right: 30px; }
         }
     </style>
@@ -173,94 +226,102 @@
 <body>
 
     <button class="download-btn" onclick="generatePDF()">
-        <i class="fas fa-file-pdf"></i> Download Resume PDF
+        <i class="fas fa-file-pdf"></i> Download CV as PDF
     </button>
 
-    <div class="container" id="full-resume">
+    <div class="container" id="printable-cv">
+        
+        <div class="cv-title-section">
+            <h1>Curriculum Vitae</h1>
+        </div>
+
         <header>
-            <img src="https://via.placeholder.com/180" alt="Balwinder Singh" class="profile-img">
             <div class="header-content">
-                <h1>Balwinder Singh</h1>
-                <p>Mechanical Engineer & Production Expert</p>
-                <div style="margin-top:10px; font-size: 0.9rem;">
+                <h2>Balwinder Singh</h2>
+                <p class="subtitle">Mechanical Engineer & Production Expert</p>
+                <div class="contact-info">
                     <span><i class="fas fa-map-marker-alt"></i> Roopnagar, Punjab</span><br>
                     <span><i class="fas fa-phone"></i> +91 9781006693</span><br>
                     <span><i class="fas fa-envelope"></i> balwindersingh10219@gmail.com</span>
                 </div>
             </div>
+            <img src="https://via.placeholder.com/180" alt="Balwinder Singh" class="profile-img">
         </header>
 
-        <div id="resume-body">
-            <div class="main-grid">
-                <section id="summary" class="visible">
-                    <h2>Professional Profile</h2>
-                    <div class="summary-box">
-                        Dynamic professional with over a decade of experience across automotive, pharmaceutical, and agricultural sectors. Expert in CNC programming (FAUNC), quality inspection, and production supervision. Currently managing a coaching centre and agricultural operations while providing consultancy in pharma and CNC sectors.
-                    </div>
-                </section>
+        <div class="main-grid">
+            <section id="summary" class="visible">
+                <h2 class="section-title">Professional Profile</h2>
+                <div class="summary-box">
+                    Dynamic professional with over a decade of experience across automotive, pharmaceutical, and agricultural sectors. Expert in CNC programming (FAUNC), quality inspection, and production supervision. Currently managing a coaching centre and agricultural operations while providing consultancy in pharma and CNC sectors.
+                </div>
+            </section>
 
-                <section id="skills" class="visible">
-                    <h2>Technical Expertise</h2>
-                    <div class="skills-container">
-                        <div class="skill-card"><i class="fas fa-cogs"></i> CNC Programming (FAUNC)</div>
-                        <div class="skill-card"><i class="fas fa-search"></i> Quality Inspection</div>
-                        <div class="skill-card"><i class="fas fa-capsules"></i> Pharma Production</div>
-                        <div class="skill-card"><i class="fas fa-pencil-ruler"></i> AutoCAD 2007</div>
-                        <div class="skill-card"><i class="fas fa-tractor"></i> Farm Management</div>
-                        <div class="skill-card"><i class="fas fa-chalkboard-teacher"></i> Coaching & Training</div>
-                    </div>
-                </section>
+            <section id="skills" class="visible">
+                <h2 class="section-title">Technical Expertise</h2>
+                <div class="skills-container">
+                    <div class="skill-card"><i class="fas fa-cogs"></i> CNC Programming (FAUNC)</div>
+                    <div class="skill-card"><i class="fas fa-search"></i> Quality Inspection</div>
+                    <div class="skill-card"><i class="fas fa-capsules"></i> Pharma Production</div>
+                    <div class="skill-card"><i class="fas fa-pencil-ruler"></i> AutoCAD 2007</div>
+                    <div class="skill-card"><i class="fas fa-tractor"></i> Farm Management</div>
+                    <div class="skill-card"><i class="fas fa-chalkboard-teacher"></i> Coaching & Training</div>
+                </div>
+            </section>
 
-                <section id="education" class="visible">
-                    <h2>Education</h2>
-                    <div class="education-item">
-                        <h3>B.Tech in Mechanical Engineering</h3>
-                        <p><strong>Punjab Technical University, Jalandhar</strong></p>
-                        <ul style="margin-left: 20px; font-size: 0.9rem;">
-                            <li>Mechanical design and AutoCAD</li>
-                            <li>Thermodynamics and Power Generation</li>
-                            <li>CNC programming and Materials Science</li>
-                        </ul>
-                    </div>
-                    <div class="education-item">
-                        <h3>Secondary & Higher Secondary</h3>
-                        <p>Punjab School Education Board, Mohali</p>
-                        <p>Matrix: 76% Distinction | Higher Secondary (+2): 48%</p>
-                    </div>
-                </section>
+            <section id="education" class="visible">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <h3>B.Tech in Mechanical Engineering</h3>
+                    <p><strong>Punjab Technical University, Jalandhar</strong></p>
+                    <ul style="margin-left: 20px; font-size: 0.9rem; margin-top: 5px;">
+                        <li>Mechanical design and AutoCAD</li>
+                        <li>Thermodynamics and Power Generation</li>
+                        <li>CNC programming and Materials Science</li>
+                    </ul>
+                </div>
+                <div class="education-item">
+                    <h3>Secondary & Higher Secondary</h3>
+                    <p>Punjab School Education Board, Mohali</p>
+                    <p style="margin-top: 5px;">Matrix: 76% Distinction | Higher Secondary (+2): 48%</p>
+                </div>
+            </section>
 
-                <section id="experience" class="visible">
-                    <h2>Experience Highlights</h2>
-                    <p>• <strong>Automobile Industry:</strong> Quality/Production Inspector (2+ yrs) & CNC Operator/Programmer (5+ yrs).</p>
-                    <p>• <strong>Pharmaceutical Sector:</strong> Production Operator in Capsules Dept (5+ yrs).</p>
-                    <p>• <strong>Agriculture:</strong> Expertise in modern irrigation, cultivation, and livestock care.</p>
-                </section>
-            </div>
+            <section id="experience" class="visible">
+                <h2 class="section-title">Experience Highlights</h2>
+                <p style="margin-bottom: 10px;">• <strong>Automobile Industry:</strong> Quality/Production Inspector (2+ yrs) & CNC Operator/Programmer (5+ yrs).</p>
+                <p style="margin-bottom: 10px;">• <strong>Pharmaceutical Sector:</strong> Production Operator in Capsules Dept (5+ yrs).</p>
+                <p>• <strong>Agriculture:</strong> Expertise in modern irrigation, cultivation, and livestock care.</p>
+            </section>
         </div>
     </div>
 
     <script>
-        // PDF Generation Function
+        // Updated PDF Generation Function to include the Header
         function generatePDF() {
-            const element = document.getElementById('resume-body'); // Excludes <header>
+            const element = document.getElementById('printable-cv'); 
             
             const opt = {
-                margin:       0.5,
-                filename:     'Balwinder_Singh_Resume.pdf',
+                margin:       0, // Removed margin to let the blue header touch the edges
+                filename:     'Balwinder_Singh_CV.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            // Temporary styling for PDF output
-            element.style.padding = "20px";
+            // Remove box-shadow and border-radius temporarily for a clean flat PDF print
+            const originalShadow = element.style.boxShadow;
+            const originalRadius = element.style.borderRadius;
+            element.style.boxShadow = 'none';
+            element.style.borderRadius = '0';
             
             html2pdf().set(opt).from(element).save().then(() => {
-                element.style.padding = "0px"; // Reset styling after download
+                // Restore styling after download
+                element.style.boxShadow = originalShadow;
+                element.style.borderRadius = originalRadius;
             });
         }
 
-        // Keep your original animation scripts
+        // Animation observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
